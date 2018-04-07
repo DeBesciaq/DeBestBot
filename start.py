@@ -81,13 +81,16 @@ async def gra(ctx, arg):
     if arg == "lol":
         role = discord.utils.get(ctx.message.server.roles, name="LoL")
         await bot.add_roles(author, role)
-    if arg == "cs:go":
+        await bot.say("Poprawnie nadano rangę LoL.")
+    elif arg == "cs:go":
         role = discord.utils.get(ctx.message.server.roles, name="CS:GO")
         await bot.add_roles(author, role)
-    if arg == "mc":
+        await bot.say("Poprawnie nadano rangę CS:GO.")
+    elif arg == "mc":
         role = discord.utils.get(ctx.message.server.roles, name="MC")
         await bot.add_roles(author, role)
-    if arg == "list":
+        await bot.say("Poprawnie nadano rangę MC.")
+    elif arg == "list":
         embed = discord.Embed(title="Dostępne Rangi", color=0x42ebf4)
         embed.add_field(name="League of Legends", value="Argument: lol", inline=False)
         embed.add_field(name="Counter-Strike: Global Offensive", value="Argument: cs:go", inline=False)
@@ -96,6 +99,8 @@ async def gra(ctx, arg):
         await bot.say(embed=embed)
     else:
         await bot.say("Podaj poprawną nazwę rangi. Aby sprawdzić dostępne wpisz .gra list ;D")
+    log("gra", ctx.message.author, ctx.message.author.mention)
+
 
 @bot.command(pass_context=True)
 async def komendy(ctx):
@@ -122,5 +127,6 @@ async def channelid_error(error, ctx):
 async def gra_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
         await bot.say("Podaj poprawną nazwę rangi. Aby sprawdzić dostępne wpisz .gra list ;D")
+    log("gra", ctx.message.author, ctx.message.author.mention)
 
 bot.run("MzcyMDQ3OTcyOTQ0NTc2NTEz.DalaSw.uKGDKB5MTolbfuez7YuSsUArZzU")
