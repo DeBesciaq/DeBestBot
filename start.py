@@ -148,6 +148,7 @@ async def gra_list(ctx):
 async def aktualizacja(ctx, tresc : str):
     embed = discord.Embed(title="Aktualizacja Bota", description=tresc, color=0x42ebf4)
     await bot.say(embed=embed)
+    await bot.delete_message(ctx.message)
     log("aktualizacja", ctx.message.author, ctx.message.author.mention)
 
 
