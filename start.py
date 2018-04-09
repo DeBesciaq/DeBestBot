@@ -85,66 +85,74 @@ async def channelid(ctx, channel: discord.Channel):
 
 
 @bot.command(pass_context=True)
-async def gra(ctx, arg : str, arg : str):
+async def gra_dodaj(ctx, arg : str):
     author = ctx.message.author
-    if arg1 == "dodaj":
-        if arg2 == "lol":
-            role = discord.utils.get(ctx.message.server.roles, name="LoL")
-            await bot.add_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie nadano range LoL %s" %(emoji))
-        elif arg2 == "cs:go":
-            role = discord.utils.get(ctx.message.server.roles, name="CS:GO")
-            await bot.add_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie nadano range CS:GO %s" %(emoji))
-        elif arg2 == "mc":
-            role = discord.utils.get(ctx.message.server.roles, name="MC")
-            await bot.add_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie nadano range MC %s" %(emoji))
-    if arg1 == "usun":
-        if arg2 == "lol":
-            role = discord.utils.get(ctx.message.server.roles, name="LoL")
-            await bot.remove_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie odebrano range LoL %s" %(emoji))
-        elif arg2 == "cs:go":
-            role = discord.utils.get(ctx.message.server.roles, name="CS:GO")
-            await bot.remove_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie odebrano range CS:GO %s" %(emoji))
-        elif arg2 == "mc":
-            role = discord.utils.get(ctx.message.server.roles, name="MC")
-            await bot.remove_roles(author, role)
-            emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
-            await bot.say("Poprawnie odebrano range MC %s" %(emoji))
-    elif arg1 == "list":
-        embed = discord.Embed(title="Dostepne Rangi", color=0x42ebf4)
-        embed.add_field(name="League of Legends", value="Argument: lol", inline=False)
-        embed.add_field(name="Counter-Strike: Global Offensive", value="Argument: cs:go", inline=False)
-        embed.add_field(name="Minecraft", value="Argument: mc", inline=False)
-        embed.add_field(name="Przykladowe uzycie:", value=".gra lol", inline=False)
-        await bot.say(embed=embed)
+    if arg == "lol":
+        role = discord.utils.get(ctx.message.server.roles, name="LoL")
+        await bot.add_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie nadano range LoL %s" %(emoji))
+    elif arg == "cs:go":
+        role = discord.utils.get(ctx.message.server.roles, name="CS:GO")
+        await bot.add_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie nadano range CS:GO %s" %(emoji))
+    elif arg == "mc":
+        role = discord.utils.get(ctx.message.server.roles, name="MC")
+        await bot.add_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie nadano range MC %s" %(emoji))
     else:
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
-        await bot.say("Poprawna składnia tej komendy to: .bot [dodaj/usun/list] [nazwa_gry] %s. Aby sprawdzic dostepne wpisz .gra list" %(emoji))
-        await bot.add_reaction(ctx.message, name="smile")
-    log("gra", ctx.message.author, ctx.message.author.mention)
+        await bot.say("Podaj poprawną nazwę rangi %s. Aby sprawdzic dostepne wpisz .gra list" %(emoji))
 
+
+@bot.command(pass_context=True)
+async def gra_usun(ctx, arg : str):
+    author = ctx.message.author
+    if arg == "lol":
+        role = discord.utils.get(ctx.message.server.roles, name="LoL")
+        await bot.remove_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie odebrano range LoL %s" %(emoji))
+    elif arg == "cs:go":
+        role = discord.utils.get(ctx.message.server.roles, name="CS:GO")
+        await bot.remove_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie odebrano range CS:GO %s" %(emoji))
+    elif arg == "mc":
+        role = discord.utils.get(ctx.message.server.roles, name="MC")
+        await bot.remove_roles(author, role)
+        emoji = discord.utils.get(ctx.message.server.emojis, name="poggers")
+        await bot.say("Poprawnie odebrano range MC %s" %(emoji))
+    else:
+        emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
+        await bot.say("Podaj poprawną nazwę rangi %s. Aby sprawdzic dostepne wpisz .gra list" %(emoji))
+
+
+@bot.command(pass_context=True)
+async def gra_list(ctx):
+    embed = discord.Embed(title="Dostępne Rangi", color=0x42ebf4)
+    embed.add_field(name="League of Legends", value="Argument: lol", inline=False)
+    embed.add_field(name="Counter-Strike: Global Offensive", value="Argument: cs:go", inline=False)
+    embed.add_field(name="Minecraft", value="Argument: mc", inline=False)
+    embed.add_field(name="Przykładowe użycie:", value=".gra_dodaj lol", inline=False)
+    await bot.say(embed=embed)
 
 
 @bot.command(pass_context=True)
 async def komendy(ctx):
     embed = discord.Embed(title="Dostepne komendy", description="-----------", color=0x42ebf4)
     embed.add_field(name="hi", value="Powitaj sie z botem :D", inline=False)
-    embed.add_field(name="ping", value="Sprawdza reakcje bota", inline=False)
-    embed.add_field(name="info", value="Wyswietla informacje o danym uzytkowiniku", inline=False)
-    embed.add_field(name="avatar", value="Wyswietla zdjecie profilowe danego uzytkownika", inline=False)
-    embed.add_field(name="jebac", value="Najlepiej wpisac nick Lethrilla ;D", inline=False)
+    embed.add_field(name="ping", value="Sprawdza reakcję bota", inline=False)
+    embed.add_field(name="info", value="Wyświetla informacje o danym użytkowniku", inline=False)
+    embed.add_field(name="avatar", value="Wyświetla zdjęcie profilowe danego uśytkownika", inline=False)
+    embed.add_field(name="jebac", value="Najlepiej wpisać nick Lethrilla ;D", inline=False)
     embed.add_field(name="komendy", value="Wyswietla dostepne komendy", inline=False)
-    embed.add_field(name="channelid", value="Sprawdza Indentyfikator wskazanego kanalu", inline=False)
-    embed.add_field(name="gra", value="Po wskazaniu rangi tematycznej z gry, przyznaje ci ja", inline=False)
+    embed.add_field(name="channelid", value="Sprawdza Indentyfikator wskazanego kanału", inline=False)
+    embed.add_field(name="gra_dodaj", value="Po wskazaniu rangi tematycznej z gry, przyznaje ci ją", inline=False)
+    embed.add_field(name="gra_usun", value="Po wskazaniu rangi tematycznej z gry, odbiera ci ją", inline=False)
+    embed.add_field(name="gra_list", value="Wyświetla listę dostępnych rang", inline=False)
     await bot.say(embed=embed)
     log("komendy", ctx.message.author, ctx.message.author.mention)
 
@@ -157,13 +165,38 @@ async def channelid_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
         embed = discord.Embed(title="ID kanalu "+ctx.message.channel.name, description=ctx.message.channel.id, color=0x42ebf4)
         await bot.say(embed=embed)
-    log("channelid", ctx.message.author, ctx.message.author.mention)
+        log("channelid", ctx.message.author, ctx.message.author.mention)
 
 
-@gra.error
-async def gra_error(error, ctx):
+@avatar.error
+async def channelid_error(error, ctx):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(title="Twój awatar to:", url=ctx.message.author.avatar_url, color=0x42ebf4)
+        embed.set_image(url=ctx.message.author.avatar_url)
+        await bot.say(embed=embed)
+        log("avatar", ctx.message.author, ctx.message.author.mention)
+
+    
+@jebac.error
+async def jebac_error(error, ctx):
+    if isinstance(error, commands.MissingRequiredArgument):
+        user = discord.utils.get(ctx.message.server.members, id="218294304353943553")
+        await bot.say("**Jebac cie %s**" % (user.mention))
+        log("jebac", ctx.message.author, ctx.message.author.mention)
+
+    
+@gra_dodaj.error
+async def gra_dodaj_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawna nazwe rangi %s. Aby sprawdzic dostepne wpisz .gra list ;D" %(emoji))
+
+
+@gra_usun.error
+async def gra_usun_error(error, ctx):
+    if isinstance(error, commands.MissingRequiredArgument):
+        emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
+        await bot.say("Podaj poprawna nazwe rangi %s. Aby sprawdzic dostepne wpisz .gra list ;D" %(emoji))
+
 
 bot.run("MzcyMDQ3OTcyOTQ0NTc2NTEz.DalaSw.uKGDKB5MTolbfuez7YuSsUArZzU")
