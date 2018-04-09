@@ -105,6 +105,7 @@ async def gra_dodaj(ctx, arg : str):
     else:
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawną nazwę rangi %s. Aby sprawdzic dostepne wpisz .gra list" %(emoji))
+    log("gra_dodaj", ctx.message.author, ctx.message.author.mention)
 
 
 @bot.command(pass_context=True)
@@ -128,6 +129,7 @@ async def gra_usun(ctx, arg : str):
     else:
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawną nazwę rangi %s. Aby sprawdzic dostepne wpisz .gra list" %(emoji))
+    log("gra_usun", ctx.message.author, ctx.message.author.mention)
 
 
 @bot.command(pass_context=True)
@@ -138,6 +140,15 @@ async def gra_list(ctx):
     embed.add_field(name="Minecraft", value="Argument: mc", inline=False)
     embed.add_field(name="Przykładowe użycie:", value=".gra_dodaj lol", inline=False)
     await bot.say(embed=embed)
+    log("gra_list", ctx.message.author, ctx.message.author.mention)
+    
+
+@bot.command(pass_context=True)
+@commands.has_role("Admin")
+async def aktualizacja(ctx, tresc : str):
+    embed = discord.Embed(title="Aktualizacja Bota", description=tresc, color=0x42ebf4)
+    await bot.say(embed=embed)
+    log("aktualizacja", ctx.message.author, ctx.message.author.mention)
 
 
 @bot.command(pass_context=True)
@@ -190,6 +201,7 @@ async def gra_dodaj_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawna nazwe rangi %s. Aby sprawdzic dostepne wpisz .gra list ;D" %(emoji))
+        log("gra_dodaj", ctx.message.author, ctx.message.author.mention)
 
 
 @gra_usun.error
@@ -197,6 +209,7 @@ async def gra_usun_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawna nazwe rangi %s. Aby sprawdzic dostepne wpisz .gra list ;D" %(emoji))
-
+        log("gra_usun", ctx.message.author, ctx.message.author.mention)
+        
 
 bot.run("MzcyMDQ3OTcyOTQ0NTc2NTEz.DalaSw.uKGDKB5MTolbfuez7YuSsUArZzU")
