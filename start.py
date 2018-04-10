@@ -202,6 +202,12 @@ async def rp_reset(ctx):
     await bot.say("Poprawnie zresetowano uczestników RolePlay")
     log("rp_reset", ctx.message.author, ctx.message.author.mention)
 
+    
+@bot.command(pass_context=True)
+async def pw(ctx, text: str):
+    await bot.start_private_message(ctx.message.author)
+    await bot.send_message(ctx.message.author, content=text)
+
 @bot.command(pass_context=True)
 async def komendy(ctx):
     embed = discord.Embed(title="Dostepne komendy", description="-----------", color=0x42ebf4)
