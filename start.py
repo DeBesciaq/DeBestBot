@@ -152,6 +152,56 @@ async def aktualizacja(ctx, tresc : str):
     log("aktualizacja", ctx.message.author, ctx.message.author.mention)
 
 
+gracze = []
+
+@bot.command(pass_context=True)
+@commands.has_role("RolePlay Master")
+async def rp_start(ctx, *users: discord.Member):
+    global gracze
+    for user in users:
+        await bot.say("Poprawnie dodano użytkownika: "+str(user))
+        user = str(user.id)
+        gracze.append(user)
+    log("rp_start", ctx.message.author, ctx.message.author.mention)
+
+@bot.command(pass_context=True)
+async def rp(ctx, text: str):
+    global gracze
+    kanal = bot.get_channel("432941124332814336")
+    if str(gracze[0]) == str(ctx.message.author.id):
+        embed = discord.Embed(title=text, color=0x42ebf4)
+        embed.set_footer(text="Wysłane przez Uczestnika 1")
+        await bot.send_message(kanal, embed=embed)
+    elif str(gracze[1]) == str(ctx.message.author.id):
+        embed = discord.Embed(title=text, color=0x42ebf4)
+        embed.set_footer(text="Wysłane przez Uczestnika 2")
+        await bot.send_message(kanal, embed=embed)
+    elif str(gracze[2]) == str(ctx.message.author.id):
+        embed = discord.Embed(title=text, color=0x42ebf4)
+        embed.set_footer(text="Wysłane przez Uczestnika 3")
+        await bot.send_message(kanal, embed=embed)
+    elif str(gracze[3]) == str(ctx.message.author.id):
+        embed = discord.Embed(title=text, color=0x42ebf4)
+        embed.set_footer(text="Wysłane przez Uczestnika 4")
+        await bot.send_message(kanal, embed=embed)
+    elif str(gracze[4]) == str(ctx.message.author.id):
+        embed = discord.Embed(title=text, color=0x42ebf4)
+        embed.set_footer(text="Wysłane przez Uczestnika 5")
+        await bot.send_message(kanal, embed=embed)
+    else:
+        await bot.say("Nie zostałeś zarejestrowany jako uczestnik zabawy RolePlay")
+    await bot.delete_message(ctx.message)
+    log("rp", ctx.message.author, ctx.message.author.mention)
+
+    
+@bot.command(pass_context=True)
+@commands.has_role("RolePlay Master")
+async def rp_reset(ctx):
+    global gracze
+    gracze = []
+    await bot.say("Poprawnie zresetowano uczestników RolePlay")
+    log("rp_reset", ctx.message.author, ctx.message.author.mention)
+
 @bot.command(pass_context=True)
 async def komendy(ctx):
     embed = discord.Embed(title="Dostepne komendy", description="-----------", color=0x42ebf4)
@@ -165,6 +215,9 @@ async def komendy(ctx):
     embed.add_field(name="gra_dodaj", value="Po wskazaniu rangi tematycznej z gry, przyznaje ci ją", inline=False)
     embed.add_field(name="gra_usun", value="Po wskazaniu rangi tematycznej z gry, odbiera ci ją", inline=False)
     embed.add_field(name="gra_list", value="Wyświetla listę dostępnych rang", inline=False)
+
+    kanal = bot.get_channel("433052526649016330")
+    embed.add_field(name="rp", value="Komenda do zabawy **RolePlay**. Więcej informacji na kanale "+kanal.mention, inline=False)
     await bot.say(embed=embed)
     log("komendy", ctx.message.author, ctx.message.author.mention)
 
@@ -211,6 +264,13 @@ async def gra_usun_error(error, ctx):
         emoji = discord.utils.get(ctx.message.server.emojis, name="thinkers")
         await bot.say("Podaj poprawna nazwe rangi %s. Aby sprawdzic dostepne wpisz .gra list ;D" %(emoji))
         log("gra_usun", ctx.message.author, ctx.message.author.mention)
-        
 
+        
+@avatar.error
+async def channelid_error(error, ctx):
+    if isinstance(error, IndexError):
+        master = discord.utils.get(ctx.message.server.roles, name="RolePlay Master")
+        await bot.say("Gra RolePlay nie została rozpoczęta. Jeżeli chcesz rozpocząć zabawę RolePlay skontaktuj się z "+master.name)
+
+        
 bot.run("MzcyMDQ3OTcyOTQ0NTc2NTEz.DalaSw.uKGDKB5MTolbfuez7YuSsUArZzU")
