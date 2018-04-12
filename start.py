@@ -39,6 +39,14 @@ async def ping(ctx):
     await bot.say("Pong!")
     log("ping", ctx.message.author, ctx.message.author.mention)
 
+
+@bot.command(pass_context=True)
+async def text(ctx):
+    kanal = bot.get_channel("429594209532772353")
+    while True:
+        x = str(input())
+        await bot.send_message(kanal, x)
+
     
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
