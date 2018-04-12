@@ -12,7 +12,7 @@ def log(command, author_name, author_mention):
     print("Uzytkownik: "+x+", "+y)
     print("------")
 
-bot = commands.Bot
+bot = commands.Bot()
 
 
 while True:
