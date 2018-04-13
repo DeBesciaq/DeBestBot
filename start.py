@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 import os
+import random
 
 
 def log(command, author_name, author_mention):
@@ -264,8 +265,13 @@ async def channelid_error(error, ctx):
 @jebac.error
 async def jebac_error(error, ctx):
     if isinstance(error, commands.MissingRequiredArgument):
-        user = discord.utils.get(ctx.message.server.members, id="218294304353943553")
-        await bot.say("**Jebac cie %s**" % (user.mention))
+        x = random.choice(["debesciaq", "lethrill"])
+        if x == "lethrill":
+            user = discord.utils.get(ctx.message.server.members, id="218294304353943553")
+            await bot.say("**Jebac cie %s**" % (user.mention))
+        elif x == "debesciaq":
+            user = discord.utils.get(ctx.message.server.members, id="298539359169413120")
+            await bot.say("**Jebac cie %s**" % (user.mention))
         log("jebac", ctx.message.author, ctx.message.author.mention)
 
     
