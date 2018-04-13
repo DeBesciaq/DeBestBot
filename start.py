@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
+import os
 
 
 def log(command, author_name, author_mention):
@@ -212,9 +213,12 @@ async def rp_reset(ctx):
 
     
 @bot.command(pass_context=True)
-async def pw(ctx, text: str):
-    await bot.start_private_message(ctx.message.author)
-    await bot.send_message(ctx.message.author, content=text)
+async def won(ctx, user: discord.Member):
+    img = os.path.abspath("img\ic_stont.jpg")
+    print(img)
+    await bot.send_file(ctx.message.channel, img, content=user.mention+" IĆ STONT!")
+    log("won", ctx.message.author, ctx.message.author.mention)
+
 
 @bot.command(pass_context=True)
 async def komendy(ctx):
@@ -229,6 +233,7 @@ async def komendy(ctx):
     embed.add_field(name="gra_dodaj", value="Po wskazaniu rangi tematycznej z gry, przyznaje ci ją", inline=False)
     embed.add_field(name="gra_usun", value="Po wskazaniu rangi tematycznej z gry, odbiera ci ją", inline=False)
     embed.add_field(name="gra_list", value="Wyświetla listę dostępnych rang", inline=False)
+    embed.add_field(name="won", value="IĆ STONT", inline=False)
 
     kanal = bot.get_channel("433052526649016330")
     embed.add_field(name="rp", value="Komenda do zabawy **RolePlay**. Więcej informacji na kanale "+kanal.mention, inline=False)
