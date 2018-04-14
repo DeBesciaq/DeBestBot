@@ -18,6 +18,7 @@ def log(command, author_name, author_mention):
 bot = commands.Bot(command_prefix='.')
 
 
+
 #--------------------EVENT--------------------#
 
 
@@ -215,7 +216,7 @@ async def rp_reset(ctx):
     
 @bot.command(pass_context=True)
 async def won(ctx, user: discord.Member):
-    img = os.path.abspath("img\ic_stont.jpg")
+    
     print(img)
     await bot.send_file(ctx.message.channel, img, content=user.mention+" IĆ STONT!")
     log("won", ctx.message.author, ctx.message.author.mention)
@@ -297,5 +298,9 @@ async def channelid_error(error, ctx):
         master = discord.utils.get(ctx.message.server.roles, name="RolePlay Master")
         await bot.say("Gra RolePlay nie została rozpoczęta. Jeżeli chcesz rozpocząć zabawę RolePlay skontaktuj się z "+master.name)
 
-        
-bot.run("MzcyMDQ3OTcyOTQ0NTc2NTEz.DalaSw.uKGDKB5MTolbfuez7YuSsUArZzU")
+
+
+cfg = open("C:\\Users\\PC\\Desktop\\token.txt", "r")
+klucz = cfg.read()
+bot.run(klucz)
+cfg.close()
