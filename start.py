@@ -300,7 +300,7 @@ async def channelid_error(error, ctx):
 
 
 
-cfg = open("C:\\Users\\PC\\Desktop\\token.txt", "r")
+cfg = open("/home/python/token.txt", "r")
 klucz = cfg.read()
 bot.run(klucz)
 cfg.close()

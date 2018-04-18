@@ -1,0 +1,4 @@
+connect to:
+raven6373fg.nazwa.pl
+85.128.254.188
+2a01:6100::5580:febc
